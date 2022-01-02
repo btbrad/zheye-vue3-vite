@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import Default from '../assets/default.jpeg'
+import Default from '@/assets/default.jpeg'
 
 export interface ColumnProps {
   id: number;

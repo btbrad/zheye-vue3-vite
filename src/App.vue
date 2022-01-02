@@ -3,8 +3,8 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import 'normalize.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ColumnList, { ColumnProps } from './components/ColumnList.vue'
-import Logo from './assets/logo.png'
+import ColumnList, { ColumnProps } from '@/components/ColumnList.vue'
+import Logo from '@/assets/logo.png'
 const testData: ColumnProps[] = [
   {
     id: 1,
