@@ -1,10 +1,24 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import ValidateInput, { RulesProp } from './ValidateInput.vue'
 
 const emailRegex = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
 
+
+const emailRules: RulesProp = [
+  {
+    type: 'required', message: '电子邮箱地址不能为空'
+  },
+  {
+    type: 'email', message: '请输入正确的电子邮箱格式'
+  }
+]
+
 export default defineComponent({
   name: 'Form',
+  components: {
+    ValidateInput
+  },
   setup() {
 
     const emailRef = reactive({
@@ -25,7 +39,8 @@ export default defineComponent({
 
   return {
     emailRef,
-    validateEmail
+    validateEmail,
+    emailRules
   }
 
   }
@@ -37,7 +52,7 @@ export default defineComponent({
   <form>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input v-model="emailRef.val" @blur="validateEmail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <validate-input :rules="emailRules" />
       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
       <div class="form-text" v-if="emailRef.error">{{ emailRef.message }}</div>
     </div>
