@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import ValidateInput, { RulesProp } from './ValidateInput.vue'
 
 const emailRegex = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
@@ -21,6 +21,8 @@ export default defineComponent({
   },
   setup() {
 
+    const emailVal = ref('brad')
+
     const emailRef = reactive({
       val: '',
       error: false,
@@ -40,7 +42,8 @@ export default defineComponent({
   return {
     emailRef,
     validateEmail,
-    emailRules
+    emailRules,
+    emailVal
   }
 
   }
@@ -52,7 +55,8 @@ export default defineComponent({
   <form>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <validate-input :rules="emailRules" />
+      <validate-input :rules="emailRules" v-model="emailVal" />
+      {{ emailVal }}
       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
       <div class="form-text" v-if="emailRef.error">{{ emailRef.message }}</div>
     </div>
