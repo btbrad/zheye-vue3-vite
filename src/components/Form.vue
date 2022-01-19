@@ -1,8 +1,7 @@
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import ValidateInput, { RulesProp } from './ValidateInput.vue'
 
-const emailRegex = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
 
 
 const emailRules: RulesProp = [
@@ -14,6 +13,12 @@ const emailRules: RulesProp = [
   }
 ]
 
+const passwordRules: RulesProp = [
+  {
+    type: 'required', message: '密码不能为空'
+  }
+]
+
 export default defineComponent({
   name: 'Form',
   components: {
@@ -21,30 +26,15 @@ export default defineComponent({
   },
   setup() {
 
-    const emailVal = ref('brad')
+    const emailVal = ref('')
+    const passwordVal = ref('')
 
-    const emailRef = reactive({
-      val: '',
-      error: false,
-      message: ''
-    })
-
-  const validateEmail = () => {
-    if (emailRef.val.trim() === '') {
-      emailRef.error = true
-      emailRef.message = 'can not be empty'
-    } else if (!emailRegex.test(emailRef.val)) {
-      emailRef.error = true
-      emailRef.message = 'invalid email'
+    return {
+      emailRules,
+      emailVal,
+      passwordRules,
+      passwordVal
     }
-  }
-
-  return {
-    emailRef,
-    validateEmail,
-    emailRules,
-    emailVal
-  }
 
   }
 })
@@ -54,15 +44,12 @@ export default defineComponent({
 <template>
   <form>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <validate-input :rules="emailRules" v-model="emailVal" />
-      {{ emailVal }}
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-      <div class="form-text" v-if="emailRef.error">{{ emailRef.message }}</div>
+      <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
+      <validate-input type="text" :rules="emailRules" v-model="emailVal" placeholder="请输入邮箱" />
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <label for="exampleInputPassword1" class="form-label">密码</label>
+      <validate-input type="password" :rules="passwordRules" v-model="passwordVal" placeholder="请输入密码" />
     </div>
     <div class="mb-3 form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1">
