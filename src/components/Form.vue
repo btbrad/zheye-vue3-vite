@@ -1,8 +1,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import ValidateInput, { RulesProp } from './ValidateInput.vue'
-
-
+import ValidateForm from './ValidateForm.vue'
 
 const emailRules: RulesProp = [
   {
@@ -22,18 +21,24 @@ const passwordRules: RulesProp = [
 export default defineComponent({
   name: 'Form',
   components: {
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup() {
 
     const emailVal = ref('')
     const passwordVal = ref('')
 
+    const onFormSubmit = (result: Boolean) => {
+      console.log('提交表单', result)
+    }
+
     return {
       emailRules,
       emailVal,
       passwordRules,
-      passwordVal
+      passwordVal,
+      onFormSubmit
     }
 
   }
@@ -42,7 +47,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <form>
+  <validate-form @form-submit="onFormSubmit">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
       <validate-input type="text" :rules="emailRules" v-model="emailVal" placeholder="请输入邮箱" />
@@ -51,10 +56,8 @@ export default defineComponent({
       <label for="exampleInputPassword1" class="form-label">密码</label>
       <validate-input type="password" :rules="passwordRules" v-model="passwordVal" placeholder="请输入密码" />
     </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+    <template #submit>
+      <span class="btn btn-danger">Submit</span>
+    </template>
+  </validate-form>
 </template>      
