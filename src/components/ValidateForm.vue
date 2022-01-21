@@ -10,7 +10,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onUnmounted } from 'vue'
+import mitt from 'mitt'
+
+type Events = {
+  'form-item-created': string;
+}
+
+export const emitter = mitt<Events>()
+
 export default defineComponent({
   name: 'ValidateForm',
   emits: ['form-submit'],
@@ -18,6 +26,16 @@ export default defineComponent({
     const submitForm = () => {
       context.emit('form-submit', true)
     }
+
+    const callback = (test: string) => {
+      console.log(test)
+    }
+
+    emitter.on('form-item-created', callback)
+
+    onUnmounted(() => {
+      emitter.off('form-item-created', callback)
+    })
 
     return {
       submitForm

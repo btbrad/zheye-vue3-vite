@@ -13,7 +13,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, PropType, reactive, onMounted } from 'vue'
+import { emitter } from './ValidateForm.vue'
 
 const emailRegex = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
 
@@ -31,6 +32,11 @@ export default defineComponent({
     modelValue: String
   },
   setup(props, context) {
+
+    onMounted(() => {
+      emitter.emit('form-item-created', inputRef.val)
+    })
+
     const inputRef = reactive({
       val: props.modelValue || '',
       error: false,
@@ -54,7 +60,9 @@ export default defineComponent({
           return passed
         })  
         inputRef.error = !allPassed
+        return allPassed
       }
+      return true
     }
 
     const updateValue = (e: KeyboardEvent) => {
