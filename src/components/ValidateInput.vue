@@ -34,7 +34,7 @@ export default defineComponent({
   setup(props, context) {
 
     onMounted(() => {
-      emitter.emit('form-item-created', inputRef.val)
+      emitter.emit('form-item-created', validateInput)
     })
 
     const inputRef = reactive({

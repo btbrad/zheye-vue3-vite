@@ -13,8 +13,10 @@
 import { defineComponent, onUnmounted } from 'vue'
 import mitt from 'mitt'
 
+type ValidateFun = () => boolean
+
 type Events = {
-  'form-item-created': string;
+  'form-item-created': ValidateFun;
 }
 
 export const emitter = mitt<Events>()
@@ -23,12 +25,16 @@ export default defineComponent({
   name: 'ValidateForm',
   emits: ['form-submit'],
   setup (props, context) {
+
+    let funArr: ValidateFun[] = []
+
     const submitForm = () => {
-      context.emit('form-submit', true)
+      const result = funArr.map(func => func()).every(res => res)
+      context.emit('form-submit', result)
     }
 
-    const callback = (test: string) => {
-      console.log(test)
+    const callback = (func: ValidateFun) => {
+      funArr.push(func)
     }
 
     emitter.on('form-item-created', callback)
