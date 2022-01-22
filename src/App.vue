@@ -3,48 +3,21 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import 'normalize.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ColumnList, { ColumnProps } from '@/components/ColumnList.vue'
 import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
 import Footer from '@/components/Footer.vue'
 import Form from '@/components/Form.vue'
-import Logo from '@/assets/logo.png'
 
 const currentUser: UserProps = {
-  isLogin: true,
-  name: 'Brad'
+  isLogin: false,
+  name: ''
 }
 
-const testData: ColumnProps[] = [
-  {
-    id: 1,
-    title: 'test1的专栏',
-    description: '这是test1的专栏，请点击查看!',
-    avatar: Logo
-  },
-  {
-    id: 2,
-    title: 'test2的专栏',
-    description: '这是test2的专栏，请点击查看!',
-    avatar: Logo
-  },
-  {
-    id: 3,
-    title: 'test3的专栏',
-    description: '这是test3的专栏，请点击查看!',
-    avatar: Logo
-  },
-  {
-    id: 4,
-    title: 'test4的专栏',
-    description: '这是test4的专栏，请点击查看!'
-  }
-]
 </script>
 
 <template>
   <div class="container">
     <global-header :user="currentUser" />
-    <!-- <column-list :list="testData" /> -->
+    <router-view />
     <!-- <Form /> -->
     <Footer />
   </div>

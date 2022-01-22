@@ -19,7 +19,7 @@ const passwordRules: RulesProp = [
 ]
 
 export default defineComponent({
-  name: 'Form',
+  name: 'Login',
   components: {
     ValidateInput,
     ValidateForm
