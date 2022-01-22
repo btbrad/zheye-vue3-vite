@@ -9,6 +9,7 @@ specifiers:
   typescript: ^4.4.4
   vite: ^2.7.2
   vue: ^3.2.25
+  vue-router: '4'
   vue-tsc: ^0.29.8
 
 dependencies:
@@ -16,6 +17,7 @@ dependencies:
   mitt: registry.npmmirror.com/mitt/3.0.0
   normalize.css: registry.npmmirror.com/normalize.css/8.0.1
   vue: registry.npmmirror.com/vue/3.2.28
+  vue-router: registry.npmmirror.com/vue-router/4.0.12_vue@3.2.28
 
 devDependencies:
   '@types/node': registry.npmmirror.com/@types/node/17.0.10
@@ -548,6 +550,12 @@ packages:
     dependencies:
       '@vue/compiler-dom': registry.npmmirror.com/@vue/compiler-dom/3.2.28
       '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.28
+    dev: false
+
+  registry.npmmirror.com/@vue/devtools-api/6.0.0-beta.21.1:
+    resolution: {integrity: sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/devtools-api/download/@vue/devtools-api-6.0.0-beta.21.1.tgz}
+    name: '@vue/devtools-api'
+    version: 6.0.0-beta.21.1
     dev: false
 
   registry.npmmirror.com/@vue/reactivity-transform/3.2.28:
@@ -1194,6 +1202,18 @@ packages:
       vscode-pug-languageservice: registry.npmmirror.com/vscode-pug-languageservice/0.29.8
       vscode-typescript-languageservice: registry.npmmirror.com/vscode-typescript-languageservice/0.29.8
     dev: true
+
+  registry.npmmirror.com/vue-router/4.0.12_vue@3.2.28:
+    resolution: {integrity: sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-router/download/vue-router-4.0.12.tgz}
+    id: registry.npmmirror.com/vue-router/4.0.12
+    name: vue-router
+    version: 4.0.12
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@vue/devtools-api': registry.npmmirror.com/@vue/devtools-api/6.0.0-beta.21.1
+      vue: registry.npmmirror.com/vue/3.2.28
+    dev: false
 
   registry.npmmirror.com/vue-tsc/0.29.8_typescript@4.5.5:
     resolution: {integrity: sha512-pT0wLRjvRuSmB+J4WJT6uuV9mO0KtSSXEAtaVXZQzyk5+DJdbLIQTbRce/TXSkfqt1l1WogO78RjtOJFiMCgfQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-tsc/download/vue-tsc-0.29.8.tgz}

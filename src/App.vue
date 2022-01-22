@@ -5,6 +5,7 @@ import 'normalize.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, { ColumnProps } from '@/components/ColumnList.vue'
 import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
+import Footer from '@/components/Footer.vue'
 import Form from '@/components/Form.vue'
 import Logo from '@/assets/logo.png'
 
@@ -43,8 +44,9 @@ const testData: ColumnProps[] = [
 <template>
   <div class="container">
     <global-header :user="currentUser" />
-    <column-list :list="testData" />
-    <Form />
+    <!-- <column-list :list="testData" /> -->
+    <!-- <Form /> -->
+    <Footer />
   </div>
 </template>
 
