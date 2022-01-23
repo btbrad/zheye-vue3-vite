@@ -2,6 +2,7 @@
 import { defineComponent, ref } from 'vue'
 import ValidateInput, { RulesProp } from './ValidateInput.vue'
 import ValidateForm from './ValidateForm.vue'
+import { useRouter } from 'vue-router'
 
 const emailRules: RulesProp = [
   {
@@ -26,11 +27,15 @@ export default defineComponent({
   },
   setup() {
 
+    const router = useRouter()
     const emailVal = ref('')
     const passwordVal = ref('')
 
     const onFormSubmit = (result: Boolean) => {
       console.log('提交表单', result)
+      if (result) {
+        router.push('/home')
+      }
     }
 
     return {
