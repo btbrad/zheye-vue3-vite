@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <global-header :user="currentUser" />
-    <router-view />
+    <div class="main">
+      <router-view />
+    </div>
     <global-footer />
   </div>
 </template>
@@ -28,3 +30,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.main {
+  min-height: calc(100vh - 70px - 69px - 24px);
+}
+</style>
