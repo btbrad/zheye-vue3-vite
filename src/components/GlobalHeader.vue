@@ -19,7 +19,7 @@
             <li><a class="dropdown-item" href="#">编辑资料</a></li>
           </dropdown-item>
           <dropdown-item>
-            <li><a class="dropdown-item" href="#">退出登录</a></li>
+            <li><a class="dropdown-item" @click="onLogout">退出登录</a></li>
           </dropdown-item>
         </dropdown>
       </li>
@@ -31,6 +31,8 @@
 import { defineComponent, PropType } from 'vue'
 import Dropdown from '@/components/Dropdown.vue'
 import DropdownItem from '@/components/DropdownItem.vue'
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
 export interface UserProps {
   isLogin?: boolean;
@@ -48,6 +50,20 @@ export default defineComponent({
     user: {
       type: Object as PropType<UserProps>,
       required: true
+    }
+  },
+  setup () {
+
+    const user = useUserStore()
+    const router = useRouter()
+
+    const onLogout = () => {
+      user.logout()
+      router.push('/login')
+    }
+
+    return {
+      onLogout
     }
   }
 })

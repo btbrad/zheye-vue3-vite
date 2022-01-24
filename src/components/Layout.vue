@@ -12,7 +12,8 @@
 import { defineComponent, computed } from "vue";
 import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
 import GlobalFooter from "@/components/Footer.vue";
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+import { useUserStore } from '@/stores/user'
 
 export default defineComponent({
   name: "Layout",
@@ -21,10 +22,11 @@ export default defineComponent({
     GlobalFooter,
   },
   setup() {
-    const store = useStore()
-    const currentUser: UserProps = computed(() => store.state.user)
+    // const store = useStore()
+    const user = useUserStore()
+    // const currentUser: UserProps = computed(() => store.state.user)
     return {
-      currentUser,
+      currentUser: user
     };
   },
 });

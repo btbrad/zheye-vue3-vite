@@ -3,7 +3,8 @@ import { defineComponent, ref } from 'vue'
 import ValidateInput, { RulesProp } from './ValidateInput.vue'
 import ValidateForm from './ValidateForm.vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+import { useUserStore } from '@/stores/user'
 
 const emailRules: RulesProp = [
   {
@@ -28,7 +29,8 @@ export default defineComponent({
   },
   setup() {
 
-    const store = useStore()
+    // const store = useStore()
+    const user = useUserStore()
 
     const router = useRouter()
     const emailVal = ref('')
@@ -37,7 +39,8 @@ export default defineComponent({
     const onFormSubmit = (result: Boolean) => {
       console.log('提交表单', result)
       if (result) {
-        store.commit('login')
+        // store.commit('login')
+        user.login({ name: 'Brad' })
         router.push('/home')
       }
     }
