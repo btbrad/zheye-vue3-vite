@@ -1,21 +1,26 @@
 <template>
-  <column-list :list="testData" />
+  <column-list :list="list" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import ColumnList from '@/components/ColumnList.vue'
-import { testData } from '@/testData'
+import { defineComponent, computed } from "vue";
+import ColumnList from "@/components/ColumnList.vue";
+import { useStore } from "vuex";
+import { GlobalDataProps } from '@/store/index'
 
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   components: {
-    ColumnList
+    ColumnList,
   },
-  setup () {
+  setup() {
+    const store = useStore<GlobalDataProps>();
+
+    const list = computed(() => store.state.columns)
+
     return {
-      testData
-    }
-  }
-})
+      list
+    };
+  },
+});
 </script>

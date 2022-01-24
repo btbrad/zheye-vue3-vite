@@ -9,26 +9,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
-import GlobalFooter from '@/components/Footer.vue'
+import { defineComponent, computed } from "vue";
+import GlobalHeader, { UserProps } from "@/components/GlobalHeader.vue";
+import GlobalFooter from "@/components/Footer.vue";
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: "Layout",
   components: {
     GlobalHeader,
-    GlobalFooter
+    GlobalFooter,
   },
   setup() {
-    const currentUser: UserProps = {
-      isLogin: false,
-      name: ''
-    }
+    const store = useStore()
+    const currentUser: UserProps = computed(() => store.state.user)
     return {
-      currentUser
-    }
-  }
-})
+      currentUser,
+    };
+  },
+});
 </script>
 
 <style scoped>
