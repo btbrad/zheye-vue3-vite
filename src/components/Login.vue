@@ -41,6 +41,7 @@ export default defineComponent({
       if (result) {
         // store.commit('login')
         user.login({ name: 'Brad' })
+        window.localStorage.setItem('isLogin', JSON.stringify(true))
         router.push('/home')
       }
     }
