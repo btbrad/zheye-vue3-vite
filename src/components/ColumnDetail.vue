@@ -1,5 +1,6 @@
 <template>
   <div class="column-detail-page w-75 mx-auto">
+    <loader />
     <div class="column-info row mb-4 border-bottom pb-4 align-items-center">
       <div class="col-3 text-center">
         <img :src="column.avatar" :alt="column.title" class="rounded-circle" />
@@ -16,8 +17,12 @@
 import { defineComponent } from 'vue'
 import { useRoute } from 'vue-router' 
 import { testData, testPosts, ColumnProps, PostProps } from '@/testData'
+import Loader from '@/components/Loader.vue'
 
 export default defineComponent({
+  components: {
+    Loader
+  },
   setup() {
     const route = useRoute()
     const currentId = +route.params.id
