@@ -1,5 +1,8 @@
 <template>
-  <column-list :list="list" />
+  <div class="home">
+    <uploader />
+    <column-list :list="list" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,11 +12,13 @@ import ColumnList from "@/components/ColumnList.vue";
 // import { GlobalDataProps } from '@/store/index'
 import { useColumnStore } from '@/stores/column'
 import { storeToRefs } from 'pinia'
+import Uploader from '@/components/Uploader.vue'
 
 export default defineComponent({
   name: "Home",
   components: {
     ColumnList,
+    Uploader
   },
   setup() {
     // const store = useStore<GlobalDataProps>();
