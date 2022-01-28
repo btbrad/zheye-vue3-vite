@@ -1,25 +1,44 @@
 <template>
   <div class="file-uploader">
-    <button class="btn btn-primary" @click.prevent="triggerUpload">点击上传</button>
-    <input type="file" class="file-input d-none" ref="fileInput" />
+    <button class="btn btn-primary" @click.prevent="triggerUpload">
+      <span v-if="fileStatus === 'loading'">正在上传...</span>
+      <span v-else>点击上传</span>
+    </button>
+    <input type="file" class="file-input d-none" ref="fileInput" @change.prevent="handleFileChange" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
+type UploaderStatus = 'ready' | 'loading' | 'success' | 'error'
+
 export default defineComponent({
+  props: {
+    action: {
+      type: String,
+      required: true
+    }
+  },
   setup () {
     const fileInput = ref<null | HTMLInputElement>(null)
+    const fileStatus = ref<UploaderStatus>('ready')
     const triggerUpload = () => {
       if (fileInput.value) {
         fileInput.value.click()
       }
     }
-
+    const handleFileChange = (e: Event) => {
+      const currentTarget = e.target as HTMLInputElement
+      if (currentTarget.files) {
+        fileStatus.value = 'loading'
+      }
+    }
     return {
       fileInput,
-      triggerUpload
+      triggerUpload,
+      fileStatus,
+      handleFileChange
     }
   }
 })

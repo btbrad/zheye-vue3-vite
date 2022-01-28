@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <uploader />
+    <uploader action="http://localhost:80" />
     <column-list :list="list" />
   </div>
 </template>
