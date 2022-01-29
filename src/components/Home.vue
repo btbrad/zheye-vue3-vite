@@ -7,6 +7,9 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </template>
+      <template #uploaded="slotProps">
+        <img :src="slotProps.uploadedData.data.url" width="500"/>
+      </template>
     </uploader>
     <column-list :list="list" />
   </div>

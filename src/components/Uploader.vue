@@ -4,7 +4,7 @@
       <slot v-if="fileStatus === 'loading'" name="loading">
         <button class="btn btn-primary" disabled>正在上传...</button>
       </slot>
-      <slot v-if="fileStatus === 'success'" name="uploaded">
+      <slot v-if="fileStatus === 'success'" name="uploaded" :uploadedData="uploadedDataRef" >
         <button class="btn btn-primary">上传成功</button>
       </slot>
       <slot v-else name="default">
@@ -35,8 +35,9 @@ export default defineComponent({
   },
   emits: ['file-uploaded', 'file-uploaded-error'],
   setup (props, context) {
-     const fileInput = ref<null | HTMLInputElement>(null)
+    const fileInput = ref<null | HTMLInputElement>(null)
     const fileStatus = ref<UploaderStatus>('ready')
+    const uploadedDataRef = ref()
     const triggerUpload = () => {
       if (fileInput.value) {
         fileInput.value.click()
@@ -63,6 +64,7 @@ export default defineComponent({
         }).then((resp: any) => {
           console.log(resp.data)
           fileStatus.value = 'success'
+          uploadedDataRef.value = resp.data
           context.emit('file-uploaded', resp.data)
         }).catch((e) => {
           fileStatus.value = 'error'
@@ -78,7 +80,8 @@ export default defineComponent({
       fileInput,
       triggerUpload,
       fileStatus,
-      handleFileChange
+      handleFileChange,
+      uploadedDataRef
     }
   }
 })
