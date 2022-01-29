@@ -30,6 +30,7 @@ import { useColumnStore } from '@/stores/column'
 import { storeToRefs } from 'pinia'
 import Uploader from '@/components/Uploader.vue'
 import createMessage from '@/components/createMessage'
+import { beforeUploadCheck } from '@/utils'
 
 export default defineComponent({
   name: "Home",
@@ -45,11 +46,11 @@ export default defineComponent({
     const { columns: list } = storeToRefs(column)
 
     const beforeUpload = (file: File) => {
-      const isJPG = file.type === 'image/jpeg'
-      if (!isJPG) {
+      const isJPG = beforeUploadCheck(file, ['image/jpeg'])
+      if (!isJPG.passed) {
         createMessage('只能上传JPG格式的图片', 'error')
       }
-      return isJPG
+      return isJPG.passed
     }
 
     const onFileUploaded = (rawData: any) => {
