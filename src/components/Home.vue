@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <uploader action="http://localhost:80" :beforeUpload="beforeUpload"/>
+    <uploader action="http://localhost:80" :beforeUpload="beforeUpload" @file-uploaded="onFileUploaded" @file-uploaded-error="onFileUploadedError"/>
     <column-list :list="list" />
   </div>
 </template>
@@ -36,9 +36,19 @@ export default defineComponent({
       return isJPG
     }
 
+    const onFileUploaded = (rawData: any) => {
+      createMessage('上传成功', 'success')
+    }
+
+    const onFileUploadedError = (error: any) => {
+      createMessage('上传失败', 'error')
+    }
+
     return {
       list,
-      beforeUpload
+      beforeUpload,
+      onFileUploaded,
+      onFileUploadedError
     };
   },
 });
