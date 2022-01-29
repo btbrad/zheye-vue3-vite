@@ -1,6 +1,13 @@
 <template>
   <div class="home">
-    <uploader action="http://localhost:80" :beforeUpload="beforeUpload" @file-uploaded="onFileUploaded" @file-uploaded-error="onFileUploadedError"/>
+    <uploader action="http://localhost:80" :beforeUpload="beforeUpload" @file-uploaded="onFileUploaded" @file-uploaded-error="onFileUploadedError">
+      <h2>点击上传</h2>
+      <template #loading>
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </template>
+    </uploader>
     <column-list :list="list" />
   </div>
 </template>
