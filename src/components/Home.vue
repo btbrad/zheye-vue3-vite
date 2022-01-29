@@ -1,6 +1,12 @@
 <template>
   <div class="home">
-    <uploader action="http://localhost:80" :beforeUpload="beforeUpload" @file-uploaded="onFileUploaded" @file-uploaded-error="onFileUploadedError">
+    <uploader 
+      action="http://localhost:80" 
+      :beforeUpload="beforeUpload" 
+      @file-uploaded="onFileUploaded" 
+      @file-uploaded-error="onFileUploadedError"
+      class="d-flex align-items-center justify-content-center bg-light text-secondary w-100 my-4"
+    >
       <h2>点击上传</h2>
       <template #loading>
         <div class="spinner-border text-primary" role="status">
@@ -63,3 +69,15 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.file-upload-container {
+  height: 200px;
+  cursor: pointer;
+}
+.file-upload-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
