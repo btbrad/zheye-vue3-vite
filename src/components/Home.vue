@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <uploader action="http://localhost:80" />
+    <uploader action="http://localhost:80" :beforeUpload="beforeUpload"/>
     <column-list :list="list" />
   </div>
 </template>
@@ -13,6 +13,7 @@ import ColumnList from "@/components/ColumnList.vue";
 import { useColumnStore } from '@/stores/column'
 import { storeToRefs } from 'pinia'
 import Uploader from '@/components/Uploader.vue'
+import createMessage from '@/components/createMessage'
 
 export default defineComponent({
   name: "Home",
@@ -27,8 +28,17 @@ export default defineComponent({
     // const list = computed(() => store.state.columns)
     const { columns: list } = storeToRefs(column)
 
+    const beforeUpload = (file: File) => {
+      const isJPG = file.type === 'image/jpeg'
+      if (!isJPG) {
+        createMessage('只能上传JPG格式的图片', 'error')
+      }
+      return isJPG
+    }
+
     return {
-      list
+      list,
+      beforeUpload
     };
   },
 });

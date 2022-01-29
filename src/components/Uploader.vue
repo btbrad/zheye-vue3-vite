@@ -9,19 +9,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, PropType } from 'vue'
+import Axios from 'axios'
 
 type UploaderStatus = 'ready' | 'loading' | 'success' | 'error'
+
+type CheckFunction = (file: File) => boolean
 
 export default defineComponent({
   props: {
     action: {
       type: String,
       required: true
+    },
+    beforeUpload: {
+      type: Function as PropType<CheckFunction>
     }
   },
-  setup () {
-    const fileInput = ref<null | HTMLInputElement>(null)
+  setup (props) {
+     const fileInput = ref<null | HTMLInputElement>(null)
     const fileStatus = ref<UploaderStatus>('ready')
     const triggerUpload = () => {
       if (fileInput.value) {
@@ -31,7 +37,31 @@ export default defineComponent({
     const handleFileChange = (e: Event) => {
       const currentTarget = e.target as HTMLInputElement
       if (currentTarget.files) {
+        const files = Array.from(currentTarget.files)
+        // 校验文件是否符合要求
+        if (props.beforeUpload) {
+          const result = props.beforeUpload(files[0])
+          if (!result) {
+            return
+          }
+        }
         fileStatus.value = 'loading'
+        const formData = new FormData()
+        formData.append('file', files[0])
+        Axios.post(props.action, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((resp: any) => {
+          console.log(resp.data)
+          fileStatus.value = 'success'
+        }).catch(() => {
+          fileStatus.value = 'error'
+        }).finally(() => {
+          if (fileInput.value) {
+            fileInput.value = null
+          }
+        })
       }
     }
     return {
