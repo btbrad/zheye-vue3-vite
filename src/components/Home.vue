@@ -17,12 +17,18 @@
         <img :src="slotProps.uploadedData.data.url" width="500"/>
       </template>
     </uploader>
+    <button class="btn btn-primary" @click="modalVisibleRef = true">模态框</button>
+    <modal title="测试标题" :visible="modalVisibleRef" @modal-on-close="onModalClose" @modal-on-confirm="onModalConfirm">
+      <template #content>
+        <h2>确认删除这篇文章？</h2>
+      </template>
+    </modal>
     <column-list :list="list" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref } from "vue";
 import ColumnList from "@/components/ColumnList.vue";
 // import { useStore } from "vuex";
 // import { GlobalDataProps } from '@/store/index'
@@ -31,16 +37,19 @@ import { storeToRefs } from 'pinia'
 import Uploader from '@/components/Uploader.vue'
 import createMessage from '@/components/createMessage'
 import { beforeUploadCheck } from '@/utils'
+import Modal from '@/components/Modal.vue'
 
 export default defineComponent({
   name: "Home",
   components: {
     ColumnList,
-    Uploader
+    Uploader,
+    Modal
   },
   setup() {
     // const store = useStore<GlobalDataProps>();
     const column = useColumnStore()
+    const modalVisibleRef = ref(false)
 
     // const list = computed(() => store.state.columns)
     const { columns: list } = storeToRefs(column)
@@ -61,11 +70,24 @@ export default defineComponent({
       createMessage('上传失败', 'error')
     }
 
+    const onModalClose = () => {
+      modalVisibleRef.value = false
+      console.log('模态框关闭')
+    }
+
+    const onModalConfirm = () => {
+      modalVisibleRef.value = false
+      console.log('模态框确认')
+    }
+
     return {
       list,
       beforeUpload,
       onFileUploaded,
-      onFileUploadedError
+      onFileUploadedError,
+      modalVisibleRef,
+      onModalClose,
+      onModalConfirm
     };
   },
 });
