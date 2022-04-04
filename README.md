@@ -16,3 +16,9 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 - 支持属性传递到表单标签上
 - 支持插槽
 - 父子组件通讯（mitt）
+
+### Loader组件
+- 使用teleport
+
+### 上传组件
+- input标签隐藏，点击按钮拿到input的DOM节点
